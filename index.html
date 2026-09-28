@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Interior Design Assistant</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🏠 InteriorAI</div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">How It Works</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+
+    <main class="hero">
+
+        <section class="hero-text">
+
+            <p class="tagline">✨ AI-POWERED INTERIOR DESIGN</p>
+
+            <h1>
+                Transform your space<br>
+                with <span>AI.</span>
+            </h1>
+
+            <p class="description">
+                Upload a photo of your room, tell us your style and budget,
+                and let AI create personalized interior design ideas for you.
+            </p>
+
+            <button class="start-button">
+                ✨ Start Designing
+            </button>
+
+        </section>
+
+
+       <section class="design-card">
+
+    <form action="/generate" method="POST" enctype="multipart/form-data">
+
+            <h2>Design Your Space</h2>
+
+            <p class="card-description">
+                Tell us about your room
+            </p>
+
+<div class="upload-box">
+
+    <div class="upload-icon">📷</div>
+
+    <h3>Upload Room Image</h3>
+
+    <p>PNG, JPG or JPEG</p>
+
+    <input
+    type="file"
+    id="roomImage"
+    name="room_image"
+    accept="image/png, image/jpeg"
+    hidden
+>
+
+    <button
+        type="button"
+        class="upload-button"
+        onclick="document.getElementById('roomImage').click()">
+        Choose Image
+    </button>
+
+    <div id="imagePreview"></div>
+
+</div>
+
+
+            <div class="form-group">
+
+                <label>Room Type</label>
+
+                <select name="room_type">
+                    <option>Bedroom</option>
+                    <option>Living Room</option>
+                    <option>Kitchen</option>
+                    <option>Office</option>
+                    <option>Dining Room</option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Design Style</label>
+
+                <select name="design_style">
+                    <option>Modern</option>
+                    <option>Minimalist</option>
+                    <option>Luxury</option>
+                    <option>Bohemian</option>
+                    <option>Traditional</option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Budget</label>
+
+                <input
+    type="number"
+    name="budget"
+    placeholder="Enter your budget in ₹"
+>
+
+            </div>
+
+
+           <button type="submit" class="generate-button">
+            ✨ Generate Design
+            </button>
+                </form>
+
+        </section>
+
+    </main>
+    <script>
+
+const imageInput = document.getElementById("roomImage");
+const imagePreview = document.getElementById("imagePreview");
+
+imageInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (file) {
+
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+
+            imagePreview.innerHTML = `
+                <img
+                    src="${event.target.result}"
+                    alt="Room Preview"
+                    class="preview-image"
+                >
+            `;
+
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
